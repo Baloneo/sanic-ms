@@ -120,17 +120,17 @@ services:
     environment:
       API_URL: "http://localhost:8000/openapi/spec.json"
 
-#   consul1:
-#     image: "consul:1.1.0"
-#     networks:
-#       - sanic-network
-#     environment: 
-#       - CONSUL_BIND_INTERFACE:eth0
-#     # deploy:
-#     #   placement:
-#     #     constraints: [node == ms-master]
-#     ports:
-#       - "8500:8500"
+  consul1:
+    image: "consul:1.1.0"
+    networks:
+      - sanic-network
+    environment: 
+      - CONSUL_BIND_INTERFACE:eth0
+    # deploy:
+    #   placement:
+    #     constraints: [node == ms-master]
+    ports:
+      - "8500:8500"
 
 #   consul2:
 #     image: "consul:1.1.0"

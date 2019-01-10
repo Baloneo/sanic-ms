@@ -7,10 +7,9 @@ There's some update of Sanic 18.12.0 and you need to do some adaptions to bring 
 	there's no "server", change it to "user_server", "role_server", "region_server"
 	no "x_server" in the beginning, comment it out at 1st run
 
-2. port 5432 is used in Host
+2. port 5432 is used by Host
 	modify `docker-compose.yml`:
-		replace all 5432 to 5432
-		services - db - ports "5432:5432"	# host:container
+		services - db - ports "55432:5432"	# host:container
 
 3. service response "AttributeError: 'str' object has no attribute 'output'"
 	modify `service.py`: return response.text('user service')
@@ -52,6 +51,9 @@ check service is up or not:
 kevinqq@kevinqq-VB:~/git/sanic-ms/examples$ docker-compose ps
           Name                        Command               State                       Ports                     
 ------------------------------------------------------------------------------------------------------------------
+examples_consul1_1         docker-entrypoint.sh agent ...   Up      8300/tcp, 8301/tcp, 8301/udp, 8302/tcp,        
+                                                                    8302/udp, 0.0.0.0:8500->8500/tcp, 8600/tcp,    
+                                                                    8600/udp
 examples_db_1              docker-entrypoint.sh postgres    Up      0.0.0.0:55432->5432/tcp                       
 examples_region_server_1   python -m server                 Up      0.0.0.0:8050->8050/tcp                        
 examples_role_server_1     python -m server                 Up      0.0.0.0:8020->8020/tcp                        
@@ -64,6 +66,9 @@ examples_zipkin_1          /bin/sh -c test -n "$STORA ...   Up      0.0.0.0:9410
 	docker-compose logs -f
 
 Now all the microservice services are up!
+
+6. consul address:
+	http://localhost:8500/ui/#/dc1/services
 
 ## ===================== original README ====================
 
