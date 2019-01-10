@@ -63,12 +63,20 @@ examples_zipkin_1          /bin/sh -c test -n "$STORA ...   Up      0.0.0.0:9410
 
 ```
 5. check logs
-	docker-compose logs -f
+- docker-compose logs -f
+- Now all the microservice services are up!
+- view service: http://localhost:8020, http://localhost:8030, http://localhost:8050
 
-Now all the microservice services are up!
+6. consul 
+- un-comment cosul of `docker-compose.yml`
+- reset.sh
+- access consul: http://localhost:8500/
 
-6. consul address:
-	http://localhost:8500/ui/#/dc1/services
+7. swagger
+- modify openapi address to user_service 8030
+- reset.sh
+- access swagger: http://localhost:8090/
+- and you can switch different services by clicking "Explore": 8020, 8030, 8050
 
 ## ===================== original README ====================
 

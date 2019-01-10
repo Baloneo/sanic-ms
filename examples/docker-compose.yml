@@ -118,7 +118,7 @@ services:
     networks:
       - sanic-network
     environment:
-      API_URL: "http://localhost:8000/openapi/spec.json"
+      API_URL: "http://localhost:8030/openapi/spec.json"
 
   consul1:
     image: "consul:1.1.0"

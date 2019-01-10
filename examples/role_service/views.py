@@ -1,7 +1,7 @@
 import logging
 import ujson
 
-from sanic import Blueprint
+from sanic import Blueprint, response
 
 from sanicms import doc
 from models import Role
@@ -34,4 +34,4 @@ async def get_city(request, id):
         records = await cur.fetch(
             ''' SELECT * FROM roles WHERE id = $1 ''', id
         )
-        return records
+        return response.text(str(records))
