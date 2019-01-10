@@ -10,13 +10,14 @@ How to run:
 - cd examples
 - /develop/reset.sh
 
-2. Manually run
+2. Manually run as solo app
 - create you app in / dir (like: cp examples/user_service/* ./)
 - run: python -m server
 
-Note:
+Note before you run 2):
 - your default config is `settings.py`
-- `/sanicms/server.py`, modify import: `from sanic.response import json as sanic_json`. Otherwise error: 'module is not callable' because you run as 'python -m server'
+- update your postgres db info
+- `/sanicms/server.py`, modify import: `from sanic.response import json as sanic_json`. Otherwise error: 'module is not callable' because you run as module 'python -m server'?? or dup name of 'response'??
 
 ## Introduce
 
