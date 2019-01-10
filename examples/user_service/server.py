@@ -1,3 +1,5 @@
+from sanic import response
+
 import logging
 
 from views import user_bp
@@ -22,7 +24,7 @@ async def before_server_stop(app, loop):
 
 @app.route("/")
 async def index(request):
-    return 'user service'
+    return response.text('user service')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=app.config['PORT'], debug=True)

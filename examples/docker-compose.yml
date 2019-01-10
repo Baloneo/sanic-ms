@@ -98,7 +98,8 @@ services:
   db:
     image: "postgres:9.6"
     ports:
-      - "5432:5432"
+      # HOST:CONTAINER
+      - "55432:5432"
     networks:
       - sanic-network
 

@@ -1,3 +1,5 @@
+from sanic import response
+
 import logging
 
 from sanicms.server import app
@@ -12,7 +14,7 @@ app.blueprint(region_bp)
 
 @app.route('/')
 async def index(request):
-    return 'region service'
+    return response.text('region service')
 
 
 if __name__ == '__main__':
