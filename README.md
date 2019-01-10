@@ -2,6 +2,22 @@
 
 基于sanic的微服务基础架构
 
+## Usage (@kevinqq)
+sanicms is treated as a 'framework' or 'module', you can create any services (apps) to use this module.
+
+How to run:
+1. use Docker
+- cd examples
+- /develop/reset.sh
+
+2. Manually run
+- create you app in / dir (like: cp examples/user_service/* ./)
+- run: python -m server
+
+Note:
+- your default config is `settings.py`
+- `/sanicms/server.py`, modify import: `from sanic.response import json as sanic_json`. Otherwise error: 'module is not callable' because you run as 'python -m server'
+
 ## Introduce
 
 使用python做web开发面临的一个最大的问题就是性能，在解决C10K问题上显的有点吃力。有些异步框架Tornado、Twisted、Gevent 等就是为了解决性能问题。这些框架在性能上有些提升，但是也出现了各种古怪的问题难以解决。

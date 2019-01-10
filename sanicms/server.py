@@ -13,7 +13,7 @@ from collections import defaultdict
 from basictracer import BasicTracer
 
 from sanic import Sanic, config
-from sanic.response import json, text, HTTPResponse
+from sanic.response import HTTPResponse, json as sanic_json
 from sanic.exceptions import RequestTimeout, NotFound
 
 from sanicms import load_config
@@ -74,7 +74,7 @@ async def cros(request):
             'Access-Control-Allow-Headers': config['ACCESS_CONTROL_ALLOW_HEADERS'],
             'Access-Control-Allow-Methods': config['ACCESS_CONTROL_ALLOW_METHODS']
         }
-        return json({'code': 0}, headers=headers)
+        return sanic_json({'code': 0}, headers=headers)
     if request.method == 'POST' or request.method == 'PUT':
         request['data'] = request.json
     span = before_request(request)
@@ -96,7 +96,7 @@ async def cors_res(request, response):
             })
         else:
             result.update({'data': response})
-        response = json(result)
+        response = sanic_json(result)
         if span:
             span.set_tag('http.status_code', "200")
     if span:
@@ -115,5 +115,5 @@ def timeout(request, exception):
 
 @app.exception(NotFound)
 def notfound(request, exception):
-    return json(
+    return sanic_json(
         {'message': 'Requested URL {} not found'.format(request.url)}, 404)

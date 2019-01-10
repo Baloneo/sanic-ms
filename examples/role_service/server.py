@@ -14,7 +14,7 @@ app.blueprint(role_bp)
 
 @app.route('/')
 async def index(request):
-    return response.text('role service')
+    return 'role service'
 
 
 if __name__ == '__main__':
