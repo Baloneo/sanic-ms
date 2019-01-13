@@ -3,6 +3,7 @@
 
 ## Usage (@kevinqq)
 [CHN version](https://www.jianshu.com/p/97d16b68045f) 
+
 sanicms is treated as a 'framework' or 'module', you can create any services (apps) to use this module.
 
 How to run:
@@ -21,6 +22,7 @@ Note before you run 2):
 - `/sanicms/server.py`, modify import: `from sanic.response import json as sanic_json`. Otherwise error: 'module is not callable' because you run as module 'python -m server'?? or dup name of 'response'??
 
 ## Project structure
+```
 ├── develop             # 开发脚本
 │   ├── cluster.sh
 │   ├── reset.sh        # 初始化项目
@@ -63,6 +65,7 @@ Note before you run 2):
 ├── pylintrc
 ├── README.md
 └── requirements.txt    # 基本环境的依赖模块
+```
 
 ## There's some update of Sanic 18.12.0 and you need to do some adaptions to bring this example up:
 1. `develop/reset.sh`
