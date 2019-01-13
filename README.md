@@ -40,13 +40,15 @@ Note before you run 2):
 │   └── views.py
 ├── role_service        # 微服务之2
 │   ├── ...
+├── user_service        # 微服务之3
+│   ├── ...
 ├── sanicms             # 微服务主框架
+│   ├── __init__.py
 │   ├── client.py
 │   ├── config.py
 │   ├── db.py
 │   ├── doc.py
 │   ├── exception.py
-│   ├── __init__.py
 │   ├── loggers.py
 │   ├── logging.yml
 │   ├── __main__.py
@@ -56,15 +58,13 @@ Note before you run 2):
 │   ├── service.py
 │   ├── tests.py
 │   └── utils.py
-├── user_service        # 微服务之3
-│   ├── ...
 ├── docker-compose-cluster.yml
 ├── docker-compose-service-cluster.yml
-├── docker-compose.yml  # 微服务服务的配置文件，包括db/zipkin/swagger/consul
-├── Dockerfile          # 微服务的基本环境包
+├── docker-compose.yml  # Docker微服务服务的配置文件，包括db/zipkin/swagger/consul
+├── Dockerfile          # Docker微服务的基本环境包
 ├── pylintrc
 ├── README.md
-└── requirements.txt    # 基本环境的依赖模块
+└── requirements.txt    # Python依赖模块
 ```
 
 ## There's some update of Sanic 18.12.0 and you need to do some adaptions to bring this example up:
