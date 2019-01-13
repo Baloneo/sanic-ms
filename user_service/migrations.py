@@ -8,7 +8,6 @@ from sanicms.migrations import (
 )
 from models import User
 
-
 class UserMigration(MigrationModel):
     _model = User
 

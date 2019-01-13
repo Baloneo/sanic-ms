@@ -11,6 +11,7 @@ services:
       - zipkin
     volumes:
       - "${PWD}/user_service:/service"
+      - "${PWD}/sanicms:/service/sanicms"
     ports:
       - "8030:8030"
     networks:
@@ -43,6 +44,7 @@ services:
       - zipkin
     volumes:
       - "${PWD}/region_service:/service"
+      - "${PWD}/sanicms:/service/sanicms"
     ports:
       - "8050:8050"
     networks:
@@ -74,6 +76,7 @@ services:
       - zipkin
     volumes:
       - "${PWD}/role_service:/service"
+      - "${PWD}/sanicms:/service/sanicms"      
     ports:
       - "8020:8020"
     networks:

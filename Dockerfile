@@ -10,3 +10,4 @@ RUN apk add --no-cache gcc libc-dev git make postgresql-dev \
 
 ARG service
 ADD ${service}/. /service
+#ADD sanicms/. /service/sanicms
