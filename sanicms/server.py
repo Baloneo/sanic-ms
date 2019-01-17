@@ -54,7 +54,7 @@ async def before_server_start(app, loop):
 @app.listener('after_server_start')
 async def after_server_start(app, loop):
     service = ServiceManager(app.name, loop=loop, host=app.config['CONSUL_AGENT_HOST'])
-    await service.register_service(app.config['PORT'])
+    await service.register_service(port=app.config['PORT'])
     app.service = service
 
 

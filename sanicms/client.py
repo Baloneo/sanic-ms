@@ -14,6 +14,7 @@ class Client:
     def __init__(self, name, app=None, url=None, client=None, **kwargs):
         self.name = name
         self._client = client if client else ClientSession(loop=app.loop, **kwargs)
+        print('>>>>>', app, app.services)
         self.services = app.services[self.name]
         self._url = url
 
@@ -26,6 +27,7 @@ class Client:
 
     def cli(self, req):
         self.handler_url()
+        print('>>>>>', req, self._url, self._client, self.services)
         span = opentracing.tracer.start_span(operation_name='get', child_of=req['span'])
         return ClientSessionConn(self._client, url=self._url, span=span)
 

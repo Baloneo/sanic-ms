@@ -14,7 +14,7 @@ app.blueprint(user_bp)
 
 @app.listener('before_server_start')
 async def before_srver_start(app, loop):
-    app.region_client = Client('region-service', app=app)
+    app.region_client = Client('region-service', app=app)	# service name is APP-ID
     app.role_client = Client('role-service', app=app)
 
 @app.listener('before_server_stop')
