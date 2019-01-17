@@ -14,8 +14,8 @@ app.blueprint(user_bp)
 
 @app.listener('before_server_start')
 async def before_srver_start(app, loop):
-    app.region_client =  Client('region_service', app=app)
-    app.role_client = Client('role_service', app=app)
+    app.region_client = Client('region-service', app=app)
+    app.role_client = Client('role-service', app=app)
 
 @app.listener('before_server_stop')
 async def before_server_stop(app, loop):
@@ -24,7 +24,6 @@ async def before_server_stop(app, loop):
 
 @app.route("/")
 async def index(request):
-    # return response.text('user service')	# this is needed when sanicms/server.py not import correctly
     return 'user service'
 
 if __name__ == '__main__':

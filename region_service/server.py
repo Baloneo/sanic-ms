@@ -14,7 +14,6 @@ app.blueprint(region_bp)
 
 @app.route('/')
 async def index(request):
-    # return response.text('region service')
     return 'region service'
 
 

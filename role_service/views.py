@@ -6,10 +6,10 @@ from sanic import Blueprint, response
 from sanicms import doc
 from models import Role
 
-role_bp = Blueprint('region', url_prefix='regions')
+role_bp = Blueprint('role', url_prefix='roles')
 
 
-@role_bp.post('/roles', name='add_role')
+@role_bp.post('/', name='add_role')
 @doc.summary('add role')
 @doc.description('add role')
 @doc.consumes(Role)
@@ -24,14 +24,23 @@ async def add_role(request):
             """, data['name']
         )
         return {'id': record['id']}
-    
 
-@role_bp.get('/roles/<id:int>', name='get_role')
-@doc.summary('get city info')
+@role_bp.get('/', name='get_roles')
+@doc.summary('get roles')
 @doc.produces(Role)
-async def get_city(request, id):
+async def get_roles(request):
+    async with request.app.db.acquire(request) as cur:
+        records = await cur.fetch(
+            ''' SELECT * FROM roles '''
+        )
+        return records    
+
+@role_bp.get('/<id:int>', name='get_role')
+@doc.summary('get role by id')
+@doc.produces(Role)
+async def get_role(request, id):
     async with request.app.db.acquire(request) as cur:
         records = await cur.fetch(
             ''' SELECT * FROM roles WHERE id = $1 ''', id
         )
-        return response.text(str(records))
+        return records

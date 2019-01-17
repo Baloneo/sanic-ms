@@ -123,38 +123,35 @@ services:
     environment:
       API_URL: "http://localhost:8030/openapi/spec.json"
 
-  consul1:
-    image: "consul:1.1.0"
+  consul-agent-1: &consul-agent # IP .0.7
+    image: "consul:1.4.0"
     networks:
       - sanic-network
-    environment: 
-      - CONSUL_BIND_INTERFACE:eth0
-    # deploy:
-    #   placement:
-    #     constraints: [node == ms-master]
-    ports:
-      - "8500:8500"
+    # depends_on:
+    #   - consul
+    # environment: 
+    #   - CONSUL_BIND_INTERFACE:eth0
+    command: "agent -retry-join consul -client 0.0.0.0"
 
-#   consul2:
-#     image: "consul:1.1.0"
-#     networks:
-#       - sanic-network
-#     depends_on:
-#       - consul1
-#     environment: 
-#       - CONSUL_BIND_INTERFACE:eth0
-#     command: ["agent", "-dev", "-join=consul1"]
+  consul-agent-2:   # IP .0.9
+    <<: *consul-agent
 
-#   consul3:
-#     image: "consul:1.1.0"
-#     networks:
-#       - sanic-network
-#     depends_on:
-#       - consul1
-#     environment: 
-#       - CONSUL_BIND_INTERFACE:eth0
-#     command: ["agent", "-dev", "-join=consul1"]
+  consul-server-1: &consul-server # IP .0.6
+    <<: *consul-agent
+    command: "agent -server -retry-join consul -client 0.0.0.0"
   
+  consul-server-2: # IP .0.5
+    <<: *consul-server
+
+  consul: # consul-server-bootstrap # IP .0.8
+    <<: *consul-agent
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+      - "8600:8600/udp"
+    command: "agent -server -bootstrap-expect 3 -ui -client 0.0.0.0"
+    # command: ["consul", "agent", "-dev"]
 
 networks:
   sanic-network:

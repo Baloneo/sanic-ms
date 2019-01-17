@@ -2,6 +2,7 @@ import logging
 import ujson
 import time
 import asyncio
+import datetime
 
 from sanic import Blueprint
 
@@ -18,12 +19,12 @@ user_bp = Blueprint('user', url_prefix='users')
 @logger()
 async def get_city_by_id(request, id):
     cli = request.app.region_client.cli(request)
-    async with cli.get('/cities/{}'.format(id)) as res:
+    async with cli.get('/regions/cities/{}'.format(id)) as res:
         return await res.json()
 
 @logger()
 async def get_role_by_id(request, id):
-    cli = request.app.client.cli(request)
+    cli = request.app.role_client.cli(request)
     async with cli.get('/roles/{}'.format(id)) as res:
         return await res.json()
 
@@ -37,10 +38,11 @@ async def create_user(request):
     data = request['data']
     async with request.app.db.transaction(request) as cur:
         record = await cur.fetchrow(
-            """ INSERT INTO users(name, age, city_id, role_id)
+            """ INSERT INTO users(name, age, city_id, role_id, create_time)
                 VALUES($1, $2, $3, $4, $5)
                 RETURNING id
-            """, data['name'], data['age'], data['city_id'], data['role_id']
+            """, data['name'], data['age'], data['city_id'], data['role_id'], \
+                datetime.datetime.utcnow()
         )
         return {'id': record['id']}
 
@@ -59,8 +61,10 @@ async def get_user(request, id):
     async with request.app.db.acquire(request) as cur:
         records = await cur.fetch(
             """ SELECT * FROM users WHERE id = $1 """, id)
+        # print('>>>', records)
+        records = records[0]
         datas = [
-            [records, 'city_id', get_city_by_id(request, records['city_id'])],
+            # [records, 'city_id', get_city_by_id(request, records['city_id'])],
             [records, 'role_id', get_role_by_id(request, records['role_id'])]
         ]
         await async_request(datas)

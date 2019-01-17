@@ -61,6 +61,10 @@ class JsonFormatter(logging.Formatter):
 
         msg = fields.pop('msg')
         if 'message' not in data:
+            # print(f'>>>>>>>>> data: {data}, msg: {msg}')
+            if type(data) == tuple:
+                msg = eval(f'"{msg}" % {data[0]}')  # 'Starting worker [20]'
+                data = {}
             data['message'] = msg
         exc_type, exc_value, exc_traceback = sys.exc_info()
         if 'exc_text' in fields and fields['exc_text']:
