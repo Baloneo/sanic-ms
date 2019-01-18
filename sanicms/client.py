@@ -23,11 +23,12 @@ class Client:
             return
         if self.services:
             s = random.choice(list(self.services))
+            print('>>>>>', self.services, s)
             self._url = 'http://{}:{}'.format(s.service_address, s.service_port)
 
     def cli(self, req):
         self.handler_url()
-        print('>>>>>', req, self._url, self._client, self.services)
+        print('>>>>>', req, self._url, self.services)
         span = opentracing.tracer.start_span(operation_name='get', child_of=req['span'])
         return ClientSessionConn(self._client, url=self._url, span=span)
 

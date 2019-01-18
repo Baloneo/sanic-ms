@@ -19,13 +19,13 @@ user_bp = Blueprint('user', url_prefix='users')
 @logger()
 async def get_city_by_id(request, id):
     cli = request.app.region_client.cli(request)
-    async with cli.get('/regions/cities/{}'.format(id)) as res:
+    async with cli.get('regions/cities/{}'.format(id)) as res:
         return await res.json()
 
 @logger()
 async def get_role_by_id(request, id):
     cli = request.app.role_client.cli(request)
-    async with cli.get('http://role_server:8020/roles/{}'.format(id)) as res:
+    async with cli.get('roles/{}'.format(id)) as res:
         return await res.json()
 
 

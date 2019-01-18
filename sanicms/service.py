@@ -78,10 +78,10 @@ class ServiceManager(object):
                     service_name=s['ServiceName'],
                     service_id=s['ServiceID'],
                     service_address=s['ServiceAddress'],
-                    service_port=['ServicePort'],
-                    node=['Node'],
-                    address=['Address'],
-                    service_tags=['ServiceTags']
+                    service_port=s['ServicePort'],
+                    node=s['Node'],
+                    address=s['Address'],
+                    service_tags=s['ServiceTags']
                 ))
         return services
 

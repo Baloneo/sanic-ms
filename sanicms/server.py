@@ -43,12 +43,12 @@ async def before_server_start(app, loop):
     tracer.register_required_propagators()
     opentracing.tracer = tracer
     app.db = await ConnectionPool(loop=loop).init(app.config['DB_CONFIG'])
-    # service = ServiceManager(loop=loop, host=app.config['CONSUL_AGENT_HOST'])
-    # services = await service.discovery_services()
-    # app.services = defaultdict(list)
-    # for name in services[1].keys():
-    #     s = await service.discovery_service(name)
-    #     app.services[name].extend(s)
+    service = ServiceManager(loop=loop, host=app.config['CONSUL_AGENT_HOST'])
+    services = await service.discovery_services()
+    app.services = defaultdict(list)
+    for name in services[1].keys():
+        s = await service.discovery_service(name)
+        app.services[name].extend(s)
 
 
 @app.listener('after_server_start')
