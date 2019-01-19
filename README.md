@@ -2,7 +2,7 @@
 > Fork from https://github.com/songcser/sanic-ms
 
 ## Usage (@kevinqq)
-[CHN version](https://www.jianshu.com/p/97d16b68045f) 
+[CHN version](https://www.jianshu.com/p/c3e34228f4fa) 
 
 sanicms is treated as a 'framework' or 'module', you can create any services (apps) to use this module.
 

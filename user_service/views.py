@@ -38,13 +38,21 @@ async def create_user(request):
     data = request['data']
     async with request.app.db.transaction(request) as cur:
         record = await cur.fetchrow(
-            """ INSERT INTO users(name, age, city_id, role_id, create_time)
-                VALUES($1, $2, $3, $4, $5)
+            """ INSERT INTO users(name, age, role_id)
+                VALUES($1, $2, $3)
                 RETURNING id
-            """, data['name'], data['age'], data['city_id'], data['role_id'], \
-                datetime.datetime.utcnow()
+            """, data['name'], data['age'], data['role_id']
         )
         return {'id': record['id']}
+    # async with request.app.db.transaction(request) as cur:
+    #     record = await cur.fetchrow(
+    #         """ INSERT INTO users(name, age, city_id, role_id, create_time)
+    #             VALUES($1, $2, $3, $4, $5)
+    #             RETURNING id
+    #         """, data['name'], data['age'], data['city_id'], data['role_id'], \
+    #             datetime.datetime.utcnow()
+    #     )
+    #     return {'id': record['id']}
 
 @user_bp.get('/', name="get_users")
 @doc.summary("get user list")

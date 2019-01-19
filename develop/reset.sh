@@ -28,4 +28,4 @@ docker-compose run --rm region_server python -m migrations
 
 # create testing data
 # curl -X POST "http://localhost:8020/roles" -H  "accept: application/json" -H  "content-type: application/json" -d "{  \"name\": \"admin\"}"
-# curl -X POST "http://localhost:8030/users" -H  "accept: application/json" -H  "content-type: application/json" -d "{\"name\": \"Kevinqqnj\",\"age\":22,\"role_id\":1}"
+# curl -X POST "http://localhost:8030/users" -H  "accept: application/json" -H  "content-type: application/json" -d "{\"name\": \"Kevinqqnj\",\"age\":11,\"role_id\":1}"
