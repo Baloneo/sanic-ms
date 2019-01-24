@@ -9,7 +9,8 @@ sanicms is treated as a 'framework' or 'module', you can create any services (ap
 How to run:
 1. use Docker
 - git clone and cd into `sanic-ms`
-- ./develop/reset.sh
+- first run: `BUILD=y ./develop/reset.sh` or if you already built, just run: `./develop/reset.sh`
+
 (add `"${PWD}/sanicms:/service/sanicms"` into `docker-compose.yml` volumes, otherwise docker-compose ERROR: `ModuleNotFoundError: No module named 'sanicms'`)
 
 2. Manually run as solo app
