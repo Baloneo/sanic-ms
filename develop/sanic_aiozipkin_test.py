@@ -4,6 +4,10 @@ from sanic.response import json
 import aiohttp
 import aiozipkin as az
 
+"""
+integrate aiohttp to Sanic app, doc(CHN): https://www.jianshu.com/p/17bc4518b243
+"""
+
 host = '127.0.0.1'
 port = 8000
 zipkin_address = 'http://127.0.0.1:9411/api/v2/spans'
