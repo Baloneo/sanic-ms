@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source "$(dirname ${BASH_SOURCE[0]})/utils.sh"
+source "$(dirname ${BASH_SOURCE[0]})/utils.sh"  # ${BASH_SOURCE[0]}代表当前目录
 
 # ensure ">>> killing existing services" docker-compose kill db user_server role_server region_server consul
 ensure ">>> stop existing services" docker-compose stop

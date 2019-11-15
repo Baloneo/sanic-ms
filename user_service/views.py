@@ -17,7 +17,7 @@ _logger = logging.getLogger('sanic')
 user_bp = Blueprint('user', url_prefix='users')
 
 @logger()
-async def get_city_by_id(request, id):
+async def get_city_by_id(request, id):  # 获取城市
     cli = request.app.region_client.cli(request)
     async with cli.get('regions/cities/{}'.format(id)) as res:
         return await res.json()

@@ -10,7 +10,6 @@ from models import User
 
 class UserMigration(MigrationModel):
     _model = User
-
     #  @info(version="v1")
     #  def migrate_v1(self):
     #      migrate(self.add_column('hospital_id'))
@@ -26,3 +25,4 @@ def migrations():
 
 if __name__ == "__main__":
     migrations()
+

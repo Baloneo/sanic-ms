@@ -19,8 +19,8 @@ waituntil () {
 }
 
 ensure () {
-  local msg="$1"
-  shift
-  echo "${msg}"
-  "$@" || exit 1
+  local msg="$1"  # 局部变量
+  shift  # 清空
+  echo "${msg}"  # 打印msg
+  "$@" || exit 1  # 执行命令
 }

@@ -10,19 +10,19 @@ import traceback as tb
 import functools
 import socket
 
-
 from sanic.request import Request
 from basictracer.recorder import SpanRecorder
 
 from sanicms import utils
 
 STANDARD_ANNOTATIONS = {
-    'client': {'cs':[], 'cr':[]},
-    'server': {'ss':[], 'sr':[]},
+    'client': {'cs': [], 'cr': []},
+    'server': {'ss': [], 'sr': []},
 }
 STANDARD_ANNOTATIONS_KEYS = frozenset(STANDARD_ANNOTATIONS.keys())
 
 _logger = logging.getLogger('zipkin')
+
 
 def _default_json_default(obj):
     """
@@ -33,6 +33,7 @@ def _default_json_default(obj):
         return obj.isoformat()
     else:
         return str(obj)
+
 
 class JsonFormatter(logging.Formatter):
     def __init__(self,
@@ -70,7 +71,7 @@ class JsonFormatter(logging.Formatter):
         if 'exc_text' in fields and fields['exc_text']:
             exception = fields.pop('exc_text')
             data.update({
-                'exception':  exception,
+                'exception': exception,
             })
         elif exc_type and exc_value and exc_traceback:
             formatted = tb.format_exception(exc_type, exc_value, exc_traceback)
@@ -88,7 +89,7 @@ class JsonFormatter(logging.Formatter):
             now = datetime.datetime.utcnow()
             timestamp = now.strftime("%Y-%m-%dT%H:%M:%S") + ".%03d" % (now.microsecond / 1000) + "Z"
             data.update({
-               '@timestamp': timestamp
+                '@timestamp': timestamp
             })
         logr = self.defaults.copy()
         logr.update(data)
@@ -99,11 +100,13 @@ class JsonFormatter(logging.Formatter):
         """
         return dict(list(defaults.get('@fields', {}).items()) + list(fields.items()))
 
+
 def gen_span(request, name):
     span = opentracing.tracer.start_span(operation_name=name,
-                             child_of=request['span'])
+                                         child_of=request['span'])
     span.log_kv({'event': 'server'})
     return span
+
 
 def logger(type=None, category=None, detail=None, description=None,
            tracing=True, level=logging.INFO, *args, **kwargs):
@@ -112,7 +115,7 @@ def logger(type=None, category=None, detail=None, description=None,
         async def _decorator(*args, **kwargs):
             request = args[0] if len(args) > 0 and isinstance(args[0], Request) else None
             log = {
-                'category': category or request.app.name if request else '',  #服务名
+                'category': category or request.app.name if request else '',  # 服务名
                 'fun_name': fn.__name__,
                 'detail': detail or fn.__name__,  # 方法名或定义URL列表
                 'log_type': type or 'method',
@@ -172,10 +175,12 @@ def logger(type=None, category=None, detail=None, description=None,
         _decorator.description = description
         _decorator.level = level
         return _decorator
+
     decorator.detail = detail
     decorator.description = description
     decorator.level = level
     return decorator
+
 
 class AioReporter(SpanRecorder):
     def __init__(self, queue=None):
